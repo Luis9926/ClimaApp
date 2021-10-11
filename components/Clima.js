@@ -7,7 +7,7 @@ export default function Clima() {
     <SafeAreaView>
       <StatusBar translucent backgroundColor="transparent"></StatusBar>
       <View>
-        <Text>Texto</Text>
+        <Text>Textox</Text>
       </View>
     </SafeAreaView>
   );
