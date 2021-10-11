@@ -1,2 +1,2 @@
 # ClimaApp
-Aplicación de Consulta meteorológica para la UNIPOLI Durango
+Aplicación de Consulta meteorológica para la UNIPOLI Durango.
