@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import Svg, { Circle } from "react-native-svg";
+import Ionicons from "react-native-vector-icons/Ionicons";
 export default function CircleClima() {
   return (
     <View>
@@ -20,16 +21,17 @@ export default function CircleClima() {
         {(fill) => (
           <View style={styles.TextContainer}>
             <Svg height="400" width="400">
-              <Circle cx="200" cy="200" r="120" fill="#6099DE"></Circle>
+              <Circle cx="200" cy="200" r="120" fill="#585858"></Circle>
             </Svg>
 
             <View
               style={{
                 position: "absolute",
-                transform: [{ translateX: 0 }, { translateY: 170 }],
+                transform: [{ translateX: 0 }, { translateY: 115 }],
                 alignItems: "center",
               }}
             >
+              <Ionicons name={"sunny"} size={60} color={"#F3D642"} />
               <Text style={styles.BigcircleText}>27°C</Text>
               <Text style={styles.SmallcircleText}>Sensacion Térmica 25°C</Text>
             </View>

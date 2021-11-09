@@ -49,7 +49,7 @@ export default function Navigation() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           let screen;
-          console.log(index);
+
           if (index[0].state != null) {
             screen = index[0].state.index;
             console.log(screen);
@@ -67,8 +67,8 @@ export default function Navigation() {
             iconUp();
           }
           if (route.name === "Clima") {
-            iconName = focused ? "thermometer" : "thermometer-outline";
-            color = focused ? "#F4ED20" : color;
+            iconName = focused ? "cloud-circle" : "cloud-circle-outline";
+            color = focused ? "#fff" : color;
 
             size = 30;
           } else if (route.name === "Inicio") {
@@ -90,7 +90,7 @@ export default function Navigation() {
                   height: 100,
                   width: 100,
                   borderRadius: 60,
-                  backgroundColor: "#5a95ff",
+                  backgroundColor: "#fff",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
@@ -153,7 +153,11 @@ export default function Navigation() {
         tabBarStyle: { height: 60 },
       })}
     >
-      <Tab.Screen name="Clima" component={Clima} options={{ title: "Clima" }} />
+      <Tab.Screen
+        name="Clima"
+        component={Clima}
+        options={{ title: "Predicciones" }}
+      />
       <Tab.Screen
         name="Inicio"
         component={Inicio_Clima}
