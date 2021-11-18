@@ -1,13 +1,68 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, {useEffect, useState}from "react";
+import { StyleSheet, View, RefreshControl} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "react-native";
 import { Text } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { getDatabase, ref, onValue } from 'firebase/database';
+import firebase from '../firebase/firebaseConfig';
+import moment from "moment";
+
+
 export default function Clima() {
+
+
+  const [dataClima, setDataClima] = useState([]);
+
+  const [selectedRegistro, setSelectedRegistro] = useState({
+    humedad:0,
+    presion:0,
+    temperatura:0
+  });
+
+  const [date, setDate] = useState();
+  useEffect(()=>{
+    var date = moment().format('MMMM Do HH:m');
+    //firebase.saveClimaRegistro();
+    setDate(date);
+
+    try {
+     firebase.getClimaData().then((res)=>
+     {
+       
+       res = Object.entries(res);
+       res = res.slice(1).slice(-5);
+       var reg =  res[res.length-1]
+       setSelectedRegistro(reg[1]);
+       console.log("DATA CLIMA SET",res[1]);
+       setDataClima(res);
+     });
+
+    } catch (error) {
+      console.log(error);
+    }
+    
+    //firebase.saveClimaRegistro();
+  },[]);
+
+  const IconoHumedad = ()=>{
+    if(selectedRegistro.humedad >= 80){
+      return(
+        <Ionicons name={"rainy"} size={50} color={"#589FF9"} />
+      )
+    }else{
+      return(
+        
+        <Ionicons name={"sunny"} size={50} color={"#F3D642"} />
+      )
+    }
+  }
+
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar translucent backgroundColor="transparent"></StatusBar>
+      <RefreshControl/>
       <View style={styles.container}>
         <Text h1 h1Style={styles.topText}>
           Clima Hoy
@@ -36,10 +91,10 @@ export default function Clima() {
                 }}
               >
                 <View style={{ flex: 4 }}>
-                  <Ionicons name="rainy" size={50} color="#589FF9"></Ionicons>
+                  <IconoHumedad></IconoHumedad>
                 </View>
                 <View style={{ flex: 6 }}>
-                  <Text style={{ fontSize: 35, fontWeight: "100" }}>27°C</Text>
+                  <Text style={{ fontSize: 35, fontWeight: "100" }}>{selectedRegistro.temperatura}°C</Text>
                 </View>
               </View>
               <View
@@ -57,7 +112,7 @@ export default function Clima() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontSize: 15, fontWeight: "100" }}>30%</Text>
-                  <Text style={{ fontSize: 15, fontWeight: "100" }}>30P</Text>
+                  <Text style={{ fontSize: 15, fontWeight: "100" }}>{selectedRegistro.presion} P</Text>
                 </View>
               </View>
             </View>
@@ -90,7 +145,7 @@ export default function Clima() {
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 17, fontWeight: "100" }}> 30% </Text>
+                <Text style={{ fontSize: 17, fontWeight: "100" }}> {selectedRegistro.humedad} % </Text>
                 <Text style={{ fontSize: 17, fontWeight: "100" }}> 30°C </Text>
                 <Text style={{ fontSize: 17, fontWeight: "100" }}> 20°C </Text>
                 <Text style={{ fontSize: 17, fontWeight: "100" }}>10km</Text>

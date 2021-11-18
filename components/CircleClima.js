@@ -3,13 +3,28 @@ import { StyleSheet, View, Text } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import Svg, { Circle } from "react-native-svg";
 import Ionicons from "react-native-vector-icons/Ionicons";
-export default function CircleClima() {
+export default function CircleClima(props) {
+  console.log("Props",props);
+
+  const IconoHumedad = ()=>{
+    if(props.data[1].humedad >= 80){
+      return(
+        <Ionicons name={"rainy"} size={60} color={"#a7d4e7"} />
+      )
+    }else{
+      return(
+        
+        <Ionicons name={"sunny"} size={60} color={"#F3D642"} />
+      )
+    }
+  }
+
   return (
     <View>
       <AnimatedCircularProgress
         size={300}
         width={30}
-        fill={60}
+        fill={props.data[1].humedad}
         tintColor="#DAE6F4"
         onAnimationComplete={() => console.log("onAnimationComplete")}
         backgroundColor="#ffff"
@@ -31,9 +46,9 @@ export default function CircleClima() {
                 alignItems: "center",
               }}
             >
-              <Ionicons name={"sunny"} size={60} color={"#F3D642"} />
-              <Text style={styles.BigcircleText}>27°C</Text>
-              <Text style={styles.SmallcircleText}>Sensacion Térmica 25°C</Text>
+              <IconoHumedad></IconoHumedad>
+              <Text style={styles.BigcircleText}>{props.data[1].temperatura}°C</Text>
+              <Text style={styles.SmallcircleText}>Sensacion Térmica {props.data[1].temperatura-2}°C</Text>
             </View>
           </View>
         )}
