@@ -1,53 +1,42 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue,get,set, push} from 'firebase/database';
-
- 
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue, get, set, push } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAA8TsGmgN_EOqgaa4etboqTFNta5zH3S4",
-    authDomain: "climaapp-6c796.firebaseapp.com",
-    projectId: "climaapp-6c796",
-    storageBucket: "climaapp-6c796.appspot.com",
-    messagingSenderId: "957709732743",
-    appId: "1:957709732743:web:df75a782b64c234f07e122"
+  apiKey: "AIzaSyDl-QykkQuBeMDJ-DruYu_GbCJuBo1T8z0",
+  authDomain: "climaapp-3ccea.firebaseapp.com",
+  projectId: "climaapp-3ccea",
+  storageBucket: "climaapp-3ccea.appspot.com",
+  messagingSenderId: "175210165902",
+  appId: "1:175210165902:web:7c2c0a3e599d1869adfbdf",
 };
-
 
 initializeApp(firebaseConfig);
 
-
-async function getClimaData (){
-
-    const db = getDatabase();
-    const reference = ref(db,'climaRegistro/registrosClima');
-    var data = await get(reference);
-
-    
-    console.log("DATA", data.val());
-
-    return data.val();
-
-}
-
-async function saveClimaRegistro (){
-
+async function getClimaData() {
   const db = getDatabase();
-  const reference = ref(db,'climaRegistro/registrosClima');
+  const reference = ref(db, "climaRegistro/registrosClima");
+  var data = await get(reference);
 
-  await push(reference,{
-    humedad:20,
-    temperatura:20,
-    presion:100
-  }).catch((err)=>{
-    console.log(err);
-  }).then((res)=>{
-    console.log(res);
-  });
+  console.log("DATA", data.val());
 
-  
-
+  return data.val();
 }
 
+async function saveClimaRegistro() {
+  const db = getDatabase();
+  const reference = ref(db, "climaRegistro/registrosClima");
 
+  await push(reference, {
+    Humedad: 20,
+    Temperatura: 20,
+    Presion: 100,
+  })
+    .catch((err) => {
+      console.log(err);
+    })
+    .then((res) => {
+      console.log(res);
+    });
+}
 
-export default {getClimaData, saveClimaRegistro}
+export default { getClimaData, saveClimaRegistro };
